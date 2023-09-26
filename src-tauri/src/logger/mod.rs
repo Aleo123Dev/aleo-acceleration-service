@@ -20,7 +20,7 @@ impl MemoryLogger {
 
 impl Log for MemoryLogger {
     fn enabled(&self, _metadata: &Metadata) -> bool {
-        true // 设置为始终启用日志记录
+        true
     }
 
     fn log(&self, record: &Record) {

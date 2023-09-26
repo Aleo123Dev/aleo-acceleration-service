@@ -10,6 +10,7 @@ use tauri::{
 use tauri_plugin_positioner::{Position, WindowExt};
 
 use logger::get_logs;
+use rpc::{run_rpc_server, stop_rpc_server};
 
 #[tokio::main]
 async fn main() {
@@ -18,13 +19,13 @@ async fn main() {
     log::info!("app started!");
 
     let quit = CustomMenuItem::new("quit".to_string(), "Quit Appp").accelerator("Cmd+Q");
-    //TODO: read current status Start at login
-    //TODO: about, help , config, proxy
+    //TODO: read current status
+    //TODO: about, help , config, proxy, allow lan
     let auto_start = CustomMenuItem::new("auto_start", "Start at login").selected();
     let system_tray_menu = SystemTrayMenu::new().add_item(auto_start).add_item(quit);
     let app = tauri::Builder::default()
         .plugin(tauri_plugin_positioner::init())
-        .invoke_handler(generate_handler![get_logs])
+        .invoke_handler(generate_handler![get_logs, stop_rpc_server, run_rpc_server])
         .system_tray(SystemTray::new().with_menu(system_tray_menu))
         .setup(|app| {
             // hide dock icon on macOS
