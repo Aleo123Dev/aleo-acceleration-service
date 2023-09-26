@@ -1,10 +1,27 @@
-# Tauri + Svelte + Typescript
+# Aleo wallet Acceleration Service
 
-This template should help get you started developing with Tauri, Svelte and TypeScript in Vite.
+## how to install
 
-## Recommended IDE Setup
+download the package from release page.
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer).
+for macos, you need to enable application from any source, drag the app to application folder, then run the following command:
+
+```bash
+sudo xattr -r -d com.apple.quarantine
+sudo xattr -r -d com.apple.quarantine /Applications/aleo-acc-service.app
+```
+
+## Todos
+
+- [ ] Windows & Linux adaptation / optimization
+- [ ] Cross-Platform compilation
+- [ ] Settings (Rocksdb as storage)
+- [ ] Menu/Tray
+- [ ] Encryption
+- [ ] Icon
+- [ ] Auto start
+- [ ] Allow lan
+- [ ] Proxy
 
 ## ref
 

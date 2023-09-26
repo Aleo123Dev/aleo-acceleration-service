@@ -39,7 +39,7 @@ dependencies = [
 
 [[package]]
 name = "aleo-acc-service"
-version = "0.0.0"
+version = "0.0.1"
 dependencies = [
  "aleowrap",
  "anyhow",
@@ -125,10 +125,9 @@ checksum = "7e4f181fc1a372e8ceff89612e5c9b13f72bff5b066da9f8d6827ae65af492c4"
 [[package]]
 name = "aleowrap"
 version = "0.1.0"
-source = "git+https://github.com/Aleo123Dev/aleowrap.git#327957a2888667a649cd128b2b3d45def700b74a"
+source = "git+https://github.com/Aleo123Dev/aleowrap.git#e5e4c41349083b618c39411af5ddb218d7c50190"
 dependencies = [
  "anyhow",
- "clap",
  "rand 0.8.5",
  "snarkvm",
  "ureq",

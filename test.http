@@ -1,0 +1,10 @@
+
+POST http://127.0.0.1:18340
+content-type: application/json
+
+{
+    "jsonrpc": "2.0",
+    "method": "discovery",
+    "params": [],
+    "id": 1
+}
