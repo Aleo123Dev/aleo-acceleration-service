@@ -18,7 +18,10 @@ async fn main() {
     log::info!("app started!");
 
     let quit = CustomMenuItem::new("quit".to_string(), "Quit Appp").accelerator("Cmd+Q");
-    let system_tray_menu = SystemTrayMenu::new().add_item(quit);
+    //TODO: read current status Start at login
+    //TODO: about, help , config, proxy
+    let auto_start = CustomMenuItem::new("auto_start", "Start at login").selected();
+    let system_tray_menu = SystemTrayMenu::new().add_item(auto_start).add_item(quit);
     let app = tauri::Builder::default()
         .plugin(tauri_plugin_positioner::init())
         .invoke_handler(generate_handler![get_logs])
