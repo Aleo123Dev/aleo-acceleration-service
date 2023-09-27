@@ -1,6 +1,9 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+#![feature(async_closure)]
 
+mod auto_start;
+mod config;
 mod logger;
 mod rpc;
 
@@ -12,16 +15,32 @@ use tauri_plugin_positioner::{Position, WindowExt};
 use logger::get_logs;
 use rpc::{run_rpc_server, stop_rpc_server};
 
+const MENU_ITEM_AUTO_START: &str = "auto_start";
+const MENU_ITEM_QUIT: &str = "quit";
+
 #[tokio::main]
 async fn main() {
     logger::setup_logger();
     rpc::run_rpc_server();
     log::info!("app started!");
 
-    let quit = CustomMenuItem::new("quit".to_string(), "Quit Appp").accelerator("Cmd+Q");
-    //TODO: read current status
-    //TODO: about, help , config, proxy, allow lan
-    let auto_start = CustomMenuItem::new("auto_start", "Start at login").selected();
+    let quit = CustomMenuItem::new(MENU_ITEM_QUIT, "Quit Appp").accelerator("Cmd+Q");
+    let auto_start = match auto_start::AUTO_LAUNCH.as_ref() {
+        Some(v) => {
+            let enabled = v.is_enabled();
+            if enabled.is_err() {
+                CustomMenuItem::new(MENU_ITEM_AUTO_START, "Start at login").disabled()
+            } else {
+                if enabled.unwrap() {
+                    CustomMenuItem::new(MENU_ITEM_AUTO_START, "Start at login").selected()
+                } else {
+                    CustomMenuItem::new(MENU_ITEM_AUTO_START, "Start at login")
+                }
+            }
+        }
+        None => CustomMenuItem::new(MENU_ITEM_AUTO_START, "Start at login").disabled(),
+    };
+
     let system_tray_menu = SystemTrayMenu::new().add_item(auto_start).add_item(quit);
     let app = tauri::Builder::default()
         .plugin(tauri_plugin_positioner::init())
@@ -52,30 +71,66 @@ async fn main() {
                         window.set_focus().unwrap();
                     }
                 }
-                SystemTrayEvent::RightClick {
-                    position: _,
-                    size: _,
-                    ..
-                } => {
-                    let window = app.get_window("main").unwrap();
-                    window.show().unwrap();
-                    window.set_focus().unwrap();
-                }
-                SystemTrayEvent::DoubleClick {
-                    position: _,
-                    size: _,
-                    ..
-                } => {
-                    println!("system tray received a double click");
-                }
                 SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
                     "quit" => {
                         println!("system tray received quit");
                         std::process::exit(0);
                     }
-                    "hide" => {
-                        let window = app.get_window("main").unwrap();
-                        window.hide().unwrap();
+                    "auto_start" => {
+                        match auto_start::AUTO_LAUNCH.as_ref() {
+                            Some(v) => {
+                                let enabled = v.is_enabled();
+                                if enabled.is_err() {
+                                    log::warn!(
+                                        "failed to get auto start menu item enabled state: {}",
+                                        enabled.as_ref().err().unwrap()
+                                    );
+                                    if let Err(e) = app
+                                        .tray_handle()
+                                        .get_item(MENU_ITEM_AUTO_START)
+                                        .set_enabled(false)
+                                    {
+                                        log::warn!(
+                                            "failed to set auto start menu item to disabled: {}",
+                                            e
+                                        )
+                                    }
+                                }
+
+                                if enabled.is_ok() && enabled.unwrap() {
+                                    if let Err(e) = v.disable() {
+                                        log::warn!("failed to disable auto start: {}", e);
+                                    } else {
+                                        if let Err(e) = app
+                                            .tray_handle()
+                                            .get_item(MENU_ITEM_AUTO_START)
+                                            .set_selected(false)
+                                        {
+                                            log::warn!(
+                                            "failed to set auto start menu item to disabled: {}",
+                                            e
+                                        )
+                                        }
+                                    }
+                                } else {
+                                    if let Err(e) = v.enable() {
+                                        log::warn!("failed to enable auto start: {}", e);
+                                    } else {
+                                        if let Err(e) = app
+                                            .tray_handle()
+                                            .get_item(MENU_ITEM_AUTO_START)
+                                            .set_selected(true)
+                                        {
+                                            log::warn!(
+                                            "failed to set auto start menu item to disabled: {}",
+                                            e
+                                        )
+                                        }
+                                    }
+                                }
+                            }
+                            None => {}
+                        };
                     }
                     _ => {}
                 },
