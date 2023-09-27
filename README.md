@@ -19,7 +19,7 @@ sudo xattr -r -d com.apple.quarantine /Applications/aleo-acc-service.app
 - [ ] Menu/Tray
 - [ ] Encryption
 - [ ] Icon
-- [ ] Auto start
+- [x] Auto start
 - [ ] Allow lan
 - [ ] Proxy
 
