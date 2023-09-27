@@ -10,11 +10,11 @@ use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 use std::time::Instant;
 
+use crate::config::consts::RPC_PORT;
+
 lazy_static! {
     static ref RPC_CLOSER: Mutex<Option<CloseHandle>> = Mutex::new(None);
 }
-
-const RPC_PORT: u16 = 18340;
 
 macro_rules! call_aleo_function {
     ($func:ident($($arg:expr),*)) => {
