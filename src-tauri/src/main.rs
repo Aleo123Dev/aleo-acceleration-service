@@ -1,6 +1,5 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-#![feature(async_closure)]
 
 mod auto_start;
 mod config;
@@ -48,9 +47,8 @@ async fn main() {
         .system_tray(SystemTray::new().with_menu(system_tray_menu))
         .setup(|app| {
             // hide dock icon on macOS
-            if cfg!(target_os = "macos") {
-                app.set_activation_policy(tauri::ActivationPolicy::Accessory);
-            }
+            #[cfg(target_os = "macos")]
+            app.set_activation_policy(tauri::ActivationPolicy::Accessory);
             Ok(())
         })
         .on_system_tray_event(|app, event| {
