@@ -10,6 +10,8 @@ for macos, you need to enable application from any source, drag the app to appli
 sudo xattr -r -d com.apple.quarantine
 sudo xattr -r -d com.apple.quarantine /Applications/aleo-acc-service.app
 ```
+## Test Outcome of Execution
+<img width="596" alt="image" src="https://github.com/Aleo123Dev/aleo-acceleration-service/assets/123852645/c1b255e4-1a65-44b6-bf70-8d680207176b">
 
 ## Todos
 
