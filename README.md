@@ -16,7 +16,7 @@ sudo xattr -r -d com.apple.quarantine /Applications/aleo-acc-service.app
 - [ ] Windows & Linux adaptation / optimization
 - [ ] Cross-Platform compilation
 - [ ] Settings (Rocksdb as storage)
-- [ ] Menu/Tray
+- [x] Menu/Tray
 - [ ] Encryption
 - [ ] Icon
 - [x] Auto start
