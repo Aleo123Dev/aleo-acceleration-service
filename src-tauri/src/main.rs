@@ -16,6 +16,7 @@ use rpc::{run_rpc_server, stop_rpc_server};
 
 const MENU_ITEM_AUTO_START: &str = "auto_start";
 const MENU_ITEM_QUIT: &str = "quit";
+const MENU_ITEM_ABOUT: &str = "about";
 
 #[tokio::main]
 async fn main() {
@@ -39,8 +40,12 @@ async fn main() {
         }
         None => CustomMenuItem::new(MENU_ITEM_AUTO_START, "Start at login").disabled(),
     };
+    let about = CustomMenuItem::new(MENU_ITEM_ABOUT, "About");
 
-    let system_tray_menu = SystemTrayMenu::new().add_item(auto_start).add_item(quit);
+    let system_tray_menu = SystemTrayMenu::new()
+        .add_item(auto_start)
+        .add_item(quit)
+        .add_item(about);
     let app = tauri::Builder::default()
         .plugin(tauri_plugin_positioner::init())
         .invoke_handler(generate_handler![get_logs, stop_rpc_server, run_rpc_server])
@@ -73,6 +78,17 @@ async fn main() {
                     "quit" => {
                         println!("system tray received quit");
                         std::process::exit(0);
+                    }
+                    "about" => {
+                        let handle = app.app_handle();
+                        tauri::WindowBuilder::new(
+                            &handle,
+                            "about",
+                            tauri::WindowUrl::App("/about".into()),
+                        )
+                        .inner_size(400.0, 300.0)
+                        .build()
+                        .unwrap();
                     }
                     "auto_start" => {
                         match auto_start::AUTO_LAUNCH.as_ref() {
