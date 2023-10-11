@@ -100,8 +100,8 @@ pub trait Rpc {
         recipient: String,
         amount: u64,
         function: String,
-        input_record: String,
-        fee_record: String,
+        input_record: Option<String>,
+        fee_record: Option<String>,
         fee: Option<u64>,
         query: Option<String>,
     ) -> Result<String>;
@@ -191,8 +191,8 @@ impl Rpc for RpcImpl {
         recipient: String,
         amount: u64,
         function: String,
-        input_record: String,
-        fee_record: String,
+        input_record: Option<String>,
+        fee_record: Option<String>,
         fee: Option<u64>,
         query: Option<String>,
     ) -> Result<String> {
@@ -202,8 +202,8 @@ impl Rpc for RpcImpl {
             &recipient,
             amount,
             &function,
-            &input_record,
-            &fee_record,
+            input_record.as_deref(),
+            fee_record.as_deref(),
             fee,
             query.as_deref()
         ))

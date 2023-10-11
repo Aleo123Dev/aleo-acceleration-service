@@ -125,7 +125,7 @@ checksum = "7e4f181fc1a372e8ceff89612e5c9b13f72bff5b066da9f8d6827ae65af492c4"
 [[package]]
 name = "aleowrap"
 version = "0.1.0"
-source = "git+https://github.com/Aleo123Dev/aleowrap.git#5265abe25f83049c8be0d8d1beb22426e235ad85"
+source = "git+https://github.com/Aleo123Dev/aleowrap.git#c56ef5be291f8e08deed11d1cd8deb0beb0d4917"
 dependencies = [
  "anyhow",
  "rand 0.8.5",
