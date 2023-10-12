@@ -33,19 +33,3 @@ sudo xattr -r -d com.apple.quarantine /Applications/aleo-acc-service.app
 
 ### 5. Test "Send" Outcome of Execution
   <img width="596" alt="image" src="https://github.com/Aleo123Dev/aleo-acceleration-service/assets/123852645/c1b255e4-1a65-44b6-bf70-8d680207176b">
-
-## Todos
-
-- [ ] Windows & Linux adaptation / optimization
-- [ ] Cross-Platform compilation
-- [ ] Settings (Rocksdb as storage)
-- [x] Menu/Tray
-- [ ] Encryption
-- [ ] Icon
-- [x] Auto start
-- [ ] Allow lan
-- [ ] Proxy
-
-## Ref
-
-- <https://betterprogramming.pub/create-menubar-app-with-tauri-510ab7f7c43d>
