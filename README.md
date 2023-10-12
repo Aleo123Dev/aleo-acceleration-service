@@ -1,8 +1,8 @@
-# Aleo wallet Acceleration Service
+# Aleo Wallet & Acceleration Service
 
-## how to install
+## How to install
 
-### 1.install aleo-acceleration-service
+### 1.Install aleo-acceleration-service
 - [download](https://github.com/Aleo123Dev/aleo-acceleration-service/releases) the package from release page.
 <img width="1034" alt="image" src="https://github.com/Aleo123Dev/aleo-acceleration-service/assets/123852645/815b5c5e-98ab-4b0b-bd90-b950c4c6b29a">
 
@@ -16,8 +16,8 @@ sudo xattr -r -d com.apple.quarantine /Applications/aleo-acc-service.app
 - Open aleo-acc-service.app <img width="110" alt="image" src="https://github.com/Aleo123Dev/aleo-acceleration-service/assets/123852645/796dceff-3638-4424-8ff6-0ec43986fc0b"> view:
 <img width="800" alt="image" src="https://github.com/Aleo123Dev/aleo-acceleration-service/assets/123852645/84295aaf-1e8a-4abb-a063-b962bff95042">
 
-### 2. install Soter Wallet
-- [Download](https://github.com/aleoweb123/soter_aleo_wallet/release) the package from release page.
+### 2. Install Soter Wallet
+- [Download](https://github.com/aleoweb123/soter_aleo_wallet/releases) the package from release page.
 <img width="1017" alt="image" src="https://github.com/Aleo123Dev/aleo-acceleration-service/assets/123852645/cf312b20-0868-44d6-b4b9-f10e1aa3cbf9">
 - Extract the v0.1.2.d.zip file, the dist/ directory is generated.
 - Open chrome://extensions/
@@ -46,6 +46,6 @@ sudo xattr -r -d com.apple.quarantine /Applications/aleo-acc-service.app
 - [ ] Allow lan
 - [ ] Proxy
 
-## ref
+## Ref
 
 - <https://betterprogramming.pub/create-menubar-app-with-tauri-510ab7f7c43d>
