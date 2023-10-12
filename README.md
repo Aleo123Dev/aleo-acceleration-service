@@ -3,8 +3,7 @@
 ## How to install
 
 ### 1.Install aleo-acceleration-service
-- [download](https://github.com/Aleo123Dev/aleo-acceleration-service/releases) the package from release page. I recommend selecting the latest released version and downloading the appropriate platform software.
-
+- [Download](https://github.com/Aleo123Dev/aleo-acceleration-service/releases)  *I recommend selecting the latest released version and downloading the appropriate platform software*.
 
 #### Mac
 - you need to enable application from any source, drag the app to application folder, then run the following command:
@@ -22,7 +21,7 @@ sudo xattr -r -d com.apple.quarantine /Applications/aleo-acc-service.app
 Install aleo-acc-service_0.0.x_x64_en-US.msi
 
 ### 2. Install Soter Wallet
-- [Download](https://github.com/aleoweb123/soter_aleo_wallet/releases) the package from release page. I recommend selecting the latest released version
+- [Download](https://github.com/aleoweb123/soter_aleo_wallet/releases)  *I recommend selecting the latest released version*.
 
 - Extract the v0.1.2.d.zip file, the dist/ directory is generated.
 - Open chrome://extensions/
