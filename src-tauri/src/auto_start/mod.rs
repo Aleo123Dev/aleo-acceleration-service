@@ -45,15 +45,16 @@ fn init_auto_launch(name: &str) -> Option<AutoLaunch> {
         builder.set_app_path(&app_path);
     }
     #[cfg(target_os = "linux")]
-    if let Some(appimage) = app
-        .env()
-        .appimage
-        .and_then(|p| p.to_str().map(|s| s.to_string()))
-    {
-        builder.set_app_path(&appimage);
-    } else {
-        builder.set_app_path(&current_exe.display().to_string());
-    }
+    return None;
+    // if let Some(appimage) = app
+    //     .env()
+    //     .appimage
+    //     .and_then(|p| p.to_str().map(|s| s.to_string()))
+    // {
+    //     builder.set_app_path(&appimage);
+    // } else {
+    //     builder.set_app_path(&current_exe.display().to_string());
+    // }
 
     builder.build().ok()
 }
