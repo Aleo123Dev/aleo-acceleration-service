@@ -8,3 +8,25 @@ content-type: application/json
     "params": [],
     "id": 1
 }
+
+
+###
+POST http://127.0.0.1:18340
+content-type: application/json
+
+
+{
+    "jsonrpc": "2.0",
+    "method": "transfer",
+    "params": [
+        "APrivateKey1zkg87ou2q4ber8f0awbef78234v87gvsN",
+        "aleo1yr9n35r0erwtherjy3w456yhrc24dvhwel67lykrapf8fy",
+        10000000,
+        "public",
+        null,
+        null,
+        50000,
+        null
+        ],
+    "id": 1
+}
