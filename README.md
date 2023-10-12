@@ -35,5 +35,5 @@ Install aleo-acc-service_0.0.x_x64_en-US.msi
 
 ### 4. Now, when the method is executed, the local service will be called by default.
 
-### 5. Test "Send" Outcome of Execution
+### 5. Test Result "Send"
   <img width="596" alt="image" src="https://github.com/Aleo123Dev/aleo-acceleration-service/assets/123852645/c1b255e4-1a65-44b6-bf70-8d680207176b">
