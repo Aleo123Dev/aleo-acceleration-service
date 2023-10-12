@@ -39,7 +39,7 @@ dependencies = [
 
 [[package]]
 name = "aleo-acc-service"
-version = "0.0.4"
+version = "0.0.5"
 dependencies = [
  "aleowrap",
  "anyhow",
