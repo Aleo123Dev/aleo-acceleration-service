@@ -24,7 +24,7 @@ async fn main() {
     rpc::run_rpc_server();
     log::info!("app started!");
 
-    let quit = CustomMenuItem::new(MENU_ITEM_QUIT, "Quit Appp").accelerator("Cmd+Q");
+    let quit = CustomMenuItem::new(MENU_ITEM_QUIT, "Quit").accelerator("Cmd+Q");
     let auto_start = match auto_start::AUTO_LAUNCH.as_ref() {
         Some(v) => {
             let enabled = v.is_enabled();
@@ -44,8 +44,8 @@ async fn main() {
 
     let system_tray_menu = SystemTrayMenu::new()
         .add_item(auto_start)
-        .add_item(quit)
-        .add_item(about);
+        .add_item(about)
+        .add_item(quit);
     let app = tauri::Builder::default()
         .plugin(tauri_plugin_positioner::init())
         .invoke_handler(generate_handler![get_logs, stop_rpc_server, run_rpc_server])
