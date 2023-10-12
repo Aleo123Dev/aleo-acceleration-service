@@ -261,9 +261,10 @@ impl Rpc for RpcImpl {
     }
 }
 
-pub fn to_jsonrpc_error(err: impl ToString) -> jsonrpc_core::error::Error {
+pub fn to_jsonrpc_error(err: anyhow::Error) -> jsonrpc_core::error::Error {
     let mut error = jsonrpc_core::error::Error::new(jsonrpc_core::ErrorCode::ServerError(500));
-    error.data = Some(serde_json::Value::String(err.to_string()));
+    error.data = Some(serde_json::Value::String(format!("{:#?}", err)));
+    error.message = err.to_string();
     error
 }
 
@@ -291,7 +292,14 @@ impl<T> RpcLog<T> for jsonrpc_core::Result<T> {
     fn log_rpc_error(self, method: &str) -> jsonrpc_core::Result<T> {
         if self.is_err() {
             let err = self.as_ref().err().unwrap().clone();
-            log::error!(target: "rpc error", "method: {} ,code:{}, msg: {:?}",method, err.code.description(), err.message);
+            log::error!(target: "rpc error", "method: {} ,code:{}, msg: {}",method, err.code.description(), err.message);
+
+            if let Some(value) = err.data {
+                
+                if value.is_string() {
+                    log::error!(target: "rpc error","{}",value.as_str().unwrap())
+                }
+            }
         }
         self
     }
