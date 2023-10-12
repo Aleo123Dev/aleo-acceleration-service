@@ -19,6 +19,7 @@ sudo xattr -r -d com.apple.quarantine /Applications/aleo-acc-service.app
 ### 2. Install Soter Wallet
 - [Download](https://github.com/aleoweb123/soter_aleo_wallet/releases) the package from release page.
 <img width="1017" alt="image" src="https://github.com/Aleo123Dev/aleo-acceleration-service/assets/123852645/cf312b20-0868-44d6-b4b9-f10e1aa3cbf9">
+
 - Extract the v0.1.2.d.zip file, the dist/ directory is generated.
 - Open chrome://extensions/
   <img width="1031" alt="image" src="https://github.com/Aleo123Dev/aleo-acceleration-service/assets/123852645/7b316dcd-3ca3-4a25-b4f3-267daccea056">
