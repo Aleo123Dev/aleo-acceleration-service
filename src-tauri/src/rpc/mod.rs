@@ -112,7 +112,7 @@ pub trait Rpc {
         private_key: String,
         first_record: String,
         second_record: String,
-        fee_record: String,
+        fee_record: Option<String>,
         fee: Option<u64>,
         query: Option<String>,
     ) -> Result<String>;
@@ -216,7 +216,7 @@ impl Rpc for RpcImpl {
         private_key: String,
         first_record: String,
         second_record: String,
-        fee_record: String,
+        fee_record: Option<String>,
         fee: Option<u64>,
         query: Option<String>,
     ) -> Result<String> {
@@ -225,7 +225,7 @@ impl Rpc for RpcImpl {
             &private_key,
             &first_record,
             &second_record,
-            &fee_record,
+            fee_record.as_deref(),
             fee,
             query.as_deref()
         ))
@@ -295,7 +295,6 @@ impl<T> RpcLog<T> for jsonrpc_core::Result<T> {
             log::error!(target: "rpc error", "method: {} ,code:{}, msg: {}",method, err.code.description(), err.message);
 
             if let Some(value) = err.data {
-                
                 if value.is_string() {
                     log::error!(target: "rpc error","{}",value.as_str().unwrap())
                 }
