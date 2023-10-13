@@ -27,6 +27,7 @@ async fn main() {
     rpc::run_rpc_server();
     log::info!("app started!");
 
+    #[cfg(not(target_os = "windows"))]
     tokio::spawn(async {
         let mut piped_stdout =
             <capture_stdio::PipedStdout as capture_stdio::Capture>::capture().unwrap();
