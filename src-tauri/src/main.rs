@@ -1,10 +1,13 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+#![feature(internal_output_capture)]
 
 mod auto_start;
 mod config;
 mod logger;
 mod rpc;
+
+use std::io::BufReader;
 
 use tauri::{
     generate_handler, CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu,
@@ -23,6 +26,17 @@ async fn main() {
     logger::setup_logger();
     rpc::run_rpc_server();
     log::info!("app started!");
+
+    tokio::spawn(async {
+        let mut piped_stdout =
+            <capture_stdio::PipedStdout as capture_stdio::Capture>::capture().unwrap();
+        let mut output = String::new();
+        loop {
+            let mut buf_reader = BufReader::new(piped_stdout.get_reader());
+            std::io::BufRead::read_line(&mut buf_reader, &mut output).unwrap();
+            log::info!("{}", output);
+        }
+    });
 
     let quit = CustomMenuItem::new(MENU_ITEM_QUIT, "Quit").accelerator("Cmd+Q");
     let auto_start = match auto_start::AUTO_LAUNCH.as_ref() {

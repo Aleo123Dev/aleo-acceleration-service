@@ -44,6 +44,7 @@ dependencies = [
  "aleowrap",
  "anyhow",
  "auto-launch",
+ "capture-stdio",
  "chrono",
  "jsonrpc-core",
  "jsonrpc-core-client",
@@ -629,6 +630,16 @@ dependencies = [
  "glib-sys",
  "libc",
  "system-deps 6.1.1",
+]
+
+[[package]]
+name = "capture-stdio"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3c4163737c93d1f359397c377bf3ab1116f4eddb093055b5e7e7f4f06b276a11"
+dependencies = [
+ "libc",
+ "os_pipe",
 ]
 
 [[package]]

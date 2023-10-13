@@ -32,7 +32,7 @@ impl Log for MemoryLogger {
             record.level(),
             record.args()
         );
-        println!("{}", log_entry);
+        // println!("{}", log_entry);
         let mut logs = LOGS.lock().unwrap();
         logs.push(log_entry);
         if logs.len() > self.max_lines {
