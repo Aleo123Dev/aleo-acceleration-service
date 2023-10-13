@@ -13,7 +13,7 @@ sudo xattr -r -d com.apple.quarantine
 sudo xattr -r -d com.apple.quarantine /Applications/aleo-acc-service.app
 ```
 
-- Open aleo-acc-service.app <img width="110" alt="image" src="https://github.com/Aleo123Dev/aleo-acceleration-service/assets/123852645/796dceff-3638-4424-8ff6-0ec43986fc0b"> view:
+- Open **aleo-acc-service** view:
 <img width="800" alt="image" src="https://github.com/Aleo123Dev/aleo-acceleration-service/assets/123852645/84295aaf-1e8a-4abb-a063-b962bff95042">
 
 #### Linux
