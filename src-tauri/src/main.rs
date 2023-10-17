@@ -6,6 +6,7 @@ mod auto_start;
 mod config;
 mod logger;
 mod rpc;
+mod tls;
 
 use std::io::BufReader;
 
