@@ -79,7 +79,7 @@ export class Client {
   async deployRpc(params: DeployParams) {
     let resp = await this.fetch({
       method: 'deploy',
-      params: params,
+      params: Object.values(params),
       jsonrpc: '2.0',
       id: 1,
     });
@@ -99,7 +99,7 @@ export class Client {
   async transfer(params: TransferParams) {
     let resp = await this.fetch({
       method: 'transfer',
-      params: params,
+      params: Object.values(params),
       jsonrpc: '2.0',
       id: 1,
     });
@@ -109,7 +109,7 @@ export class Client {
   async join(params: JoinParams) {
     let resp = await this.fetch({
       method: 'join',
-      params: params,
+      params: Object.values(params),
       jsonrpc: '2.0',
       id: 1,
     });
@@ -119,7 +119,7 @@ export class Client {
   async split(params: SplitParams) {
     let resp = await this.fetch({
       method: 'split',
-      params: params,
+      params: Object.values(params),
       jsonrpc: '2.0',
       id: 1,
     });
