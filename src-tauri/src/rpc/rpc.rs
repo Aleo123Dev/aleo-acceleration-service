@@ -6,7 +6,7 @@ use lazy_static::lazy_static;
 use serde::{Deserialize, Serialize};
 use std::time::Instant;
 
-use crate::tls;
+use crate::{config::Config, tls};
 
 macro_rules! call_aleo_function {
     ($func:ident($($arg:expr),*)) => {
@@ -212,6 +212,7 @@ impl Rpc for RpcImpl {
 
     fn discovery(&self) -> Result<Discovery> {
         log::info!(target: "rpc","executing rpc method 'discovery'");
+        let client_secret = Config::get_config().get_secret_key().to_jsonrpc_result()?;
         Ok(Discovery {
             version: env!("CARGO_PKG_VERSION").to_string(),
             features: vec![
@@ -221,7 +222,7 @@ impl Rpc for RpcImpl {
                 "join".to_string(),
                 "split".to_string(),
             ],
-            pubkey: hex::encode(tls::get_p256_pubkey(tls::CLIENT_SECRET.as_slice())),
+            pubkey: hex::encode(tls::get_p256_pubkey(&client_secret)),
         })
     }
 }
