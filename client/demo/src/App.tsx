@@ -21,7 +21,7 @@ export default function App() {
         if (server && isWebsite(server)) { 
             const url = new URL(server);
             console.log(url.username); 
-            let client = await initClient(server); 
+            let client = await initClient(url); 
             console.log(client); 
             // TODO:
             transferTest(client);
@@ -30,8 +30,8 @@ export default function App() {
         } 
     }
 
-    async function initClient(url:string){
-       return await Client.new(url, key => true); 
+    async function initClient(url:URL){
+       return await Client.new(url); 
     }
 
 

@@ -33,37 +33,43 @@ export class Client {
   }
 
   public static async new(
-    serverurl: string,
-    onConfirmServerPubKey: (
-      serverPubKey: Uint8Array
-    ) => Promise<boolean> | boolean
+    serverurl: URL
   ) {
     let privateKey = p256.utils.randomPrivateKey();
     let publicKey = p256.getPublicKey(privateKey);
+    let ExpectServerfingerPrint = serverurl.username
 
-    let serverConf = await Client.checkService(serverurl);
+    serverurl.username = ""
+
+    let serverConf = await Client.checkService(serverurl.toString());
 
     let serverPubKey;
 
+
+
     if (serverConf.result.pubkey) {
       let serverPubKeyHex = serverConf.result.pubkey;
-      if (await onConfirmServerPubKey(hexToBytes(serverPubKeyHex))) {
+      let serverFingerPrint = bytesToHex(sha256(hexToBytes(serverConf.result.pubkey)))
+
+      if (ExpectServerfingerPrint == serverFingerPrint) {
         serverPubKey = hexToBytes(serverPubKeyHex);
       } else {
-        throw 'user rejected the server';
+        console.log("ExpectServerfingerPrint", ExpectServerfingerPrint)
+        console.log("serverFingerPrint", serverFingerPrint)
+        throw 'server finger print does not match';
       }
       serverPubKey = hexToBytes(serverPubKeyHex);
     } else {
       throw 'json rpc error';
     }
 
-    return new Client(privateKey, publicKey, serverurl, serverPubKey);
+    return new Client(privateKey, publicKey, serverurl.toString(), serverPubKey);
   }
 
   static async checkService(
     serverurl: string
   ): Promise<JsonRpcResult<DiscoveryResult>> {
-    let resp = await fetch(serverurl + '/discovery', {
+    let resp = await fetch(serverurl + 'discovery', {
       method: 'GET',
       mode: 'cors',
     });

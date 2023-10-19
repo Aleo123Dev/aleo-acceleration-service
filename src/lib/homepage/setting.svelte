@@ -20,7 +20,7 @@
 </script>
 
 <SetPassDialog bind:open={showpassdialog} />
-<div style="width: 90%;">
+<div>
   <div>
     <h2>Server url:</h2>
   </div>

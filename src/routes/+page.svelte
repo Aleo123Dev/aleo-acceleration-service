@@ -55,7 +55,13 @@
   </div>
 
   <AskPassDialog onsubmit={on_password_ok} bind:open={showpassdialog} />
-  <div class="px-4 grow pt-8 h-full">
-    <svelte:component this={selectedUi} />
+  <div class="pl-4 grow pt-4 h-full pr-8 pb-4">
+    <div class="h-full overflow-hidden break-all">
+      <div
+        class="h-full overflow-y-hidden hover:overflow-y-auto scroll-smooth flex flex-col"
+      >
+        <svelte:component this={selectedUi} />
+      </div>
+    </div>
   </div>
 </div>
