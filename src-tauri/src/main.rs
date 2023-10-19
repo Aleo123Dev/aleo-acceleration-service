@@ -37,6 +37,12 @@ const MENU_ITEM_QUIT: &str = "quit";
 const MENU_ITEM_ABOUT: &str = "about";
 const MENUITEM_COPY_ADDR: &str = "copy server address";
 
+#[derive(Clone, serde::Serialize)]
+struct Payload {
+    args: Vec<String>,
+    cwd: String,
+}
+
 #[tokio::main]
 async fn main() {
     logger::setup_logger();
@@ -91,6 +97,12 @@ async fn main() {
             set_password,
             try_password
         ])
+        .plugin(tauri_plugin_single_instance::init(|app, argv, cwd| {
+            println!("{}, {argv:?}, {cwd}", app.package_info().name);
+
+            app.emit_all("single-instance", Payload { args: argv, cwd })
+                .unwrap();
+        }))
         .system_tray(SystemTray::new().with_menu(system_tray_menu))
         .setup(|app| {
             // hide dock icon on macOS
