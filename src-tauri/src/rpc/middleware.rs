@@ -100,9 +100,6 @@ async fn aes_decode_middleware(req: Request<Body>) -> Response<Body> {
             return jsonrpc_error_to_response(error);
         }
     };
-    let nonce = body_bytes.slice(0..12);
-
-    info!("nonce: {:#?}", nonce.to_vec());
 
     let shared = match tls::generate_p256_shared_secret(&pk) {
         Ok(v) => v,
@@ -122,7 +119,7 @@ async fn aes_decode_middleware(req: Request<Body>) -> Response<Body> {
 
     info!("aes_key: {:#?}", aes_key);
 
-    let decoded_body = match super::aes::aes_decode(&aes_key, &nonce, &body_bytes.slice(12..)) {
+    let decoded_body = match tls::aes::aes_decode(&aes_key, &body_bytes) {
         Ok(v) => v,
         Err(e) => {
             let mut error = jsonrpc_core::error::Error::new(jsonrpc_core::ErrorCode::ServerError(
@@ -200,7 +197,7 @@ async fn handle_rpc(req: Request<Body>) -> Response<Body> {
     response
 }
 
-pub async fn start_hyper(address: &SocketAddr) -> Sender<()> {
+pub fn start_hyper(address: &SocketAddr) -> Sender<()> {
     // Create the Hyper server
     let make_svc =
         make_service_fn(|_conn| async { Ok::<_, hyper::Error>(service_fn(handle_request)) });
@@ -212,10 +209,12 @@ pub async fn start_hyper(address: &SocketAddr) -> Sender<()> {
         rx.await.ok();
     });
 
-    // Start the server
-    if let Err(err) = graceful.await {
-        eprintln!("Server error: {}", err);
-    }
+    tokio::spawn(async {
+        // Start the server
+        if let Err(err) = graceful.await {
+            eprintln!("Server error: {}", err);
+        }
+    });
 
     tx
 }

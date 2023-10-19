@@ -1,10 +1,12 @@
+pub mod aes;
+
 use aes_gcm::aead::generic_array::GenericArray;
 use aes_gcm::aead::OsRng;
 use anyhow::Result;
-use p256::elliptic_curve::ScalarPrimitive;
 use hkdf::Hkdf;
 use lazy_static::lazy_static;
-use sha2::Sha256;
+use p256::elliptic_curve::ScalarPrimitive;
+use sha2::{Digest, Sha256};
 
 pub fn generate_p256_shared_secret(server_public_key: &[u8]) -> Result<Vec<u8>> {
     let client_private_key = GenericArray::from_slice(CLIENT_SECRET.as_slice());
@@ -35,7 +37,13 @@ pub fn get_p256_pubkey(sk: &[u8]) -> Vec<u8> {
     pubkey.to_sec1_bytes().to_vec()
 }
 
-//TODO: store the encrypted secret to fs
+pub fn pubkey_to_fingerprint(pk: &[u8]) -> Vec<u8> {
+    let mut hasher = Sha256::new();
+    hasher.update(pk);
+    let result = hasher.finalize();
+    result.to_vec()
+}
+
 lazy_static! {
     pub static ref CLIENT_SECRET: Vec<u8> = generate_p256_secret().unwrap();
 }

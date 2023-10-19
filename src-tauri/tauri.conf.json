@@ -16,6 +16,31 @@
       "shell": {
         "all": false,
         "open": true
+      },
+      "dialog": {
+        "all": false,
+        "ask": false,
+        "confirm": false,
+        "message": false,
+        "open": true,
+        "save": true
+      },
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
+      },
+      "os": {
+        "all": true
+      },
+      "clipboard": {
+        "writeText": true
       }
     },
     "bundle": {
@@ -43,13 +68,17 @@
         "resizable": true,
         "title": "aleo-acc-service",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "transparent": true,
+        "titleBarStyle": "Visible",
+        "decorations": false
       }
     ],
     "systemTray": {
       "iconPath": "icons/icon.png",
       "iconAsTemplate": true,
       "menuOnLeftClick": false
-    }
+    },
+    "macOSPrivateApi": true
   }
 }

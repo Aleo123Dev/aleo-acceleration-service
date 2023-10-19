@@ -41,7 +41,7 @@ fn init_auto_launch(name: &str) -> Option<AutoLaunch> {
         } else {
             exe_path
         };
-        log::info!("auto_start path {}", &app_path);
+        // log::info!("auto_start path {}", &app_path);
         builder.set_app_path(&app_path);
     }
     #[cfg(target_os = "linux")]

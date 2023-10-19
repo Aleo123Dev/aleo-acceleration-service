@@ -1,4 +1,3 @@
-pub mod aes;
 pub mod middleware;
 pub mod rpc;
 
@@ -29,18 +28,19 @@ pub fn stop_rpc_server() {
 }
 
 #[tauri::command]
-pub fn run_rpc_server() {
-    tokio::spawn(async {
-        #[cfg(debug_assertions)]
-        let address: SocketAddr =
-            SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(0, 0, 0, 0), RPC_PORT));
+pub async fn run_rpc_server() {
+    if RPC_CLOSER.lock().unwrap().is_some() {
+        return;
+    }
+    #[cfg(debug_assertions)]
+    let address: SocketAddr =
+        SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(0, 0, 0, 0), RPC_PORT));
 
-        #[cfg(not(debug_assertions))]
-        let address = SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), RPC_PORT));
+    #[cfg(not(debug_assertions))]
+    let address = SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::new(127, 0, 0, 1), RPC_PORT));
 
-        let close = middleware::start_hyper(&address).await;
-        let mut rpc_closer = RPC_CLOSER.lock().unwrap();
-        *rpc_closer = Some(close);
-        log::info!("rpc server started!");
-    });
+    let close = middleware::start_hyper(&address);
+    let mut rpc_closer = RPC_CLOSER.lock().unwrap();
+    *rpc_closer = Some(close);
+    log::info!("rpc server started!");
 }

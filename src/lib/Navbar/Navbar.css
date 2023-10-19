@@ -1,0 +1,21 @@
+.navbar {
+	display: flex;
+	/* align-items: start; */
+	inline-size: 100%;
+	justify-content: flex-start;
+
+	/* border-bottom: 1px solid var(--fds-surface-stroke-flyout); */
+
+	min-block-size: var(--navbar-height);
+	height: var(--navbar-height);
+
+	@apply pb-5;
+	@apply align-top;
+	/* transform: translateY(0.001px); */
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	/* z-index: 99; */
+}

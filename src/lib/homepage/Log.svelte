@@ -23,7 +23,6 @@
 </script>
 
 <div style="width: 90%;">
-  <h1>Logs</h1>
   <div style="text-align: left;">
     {#each logs as log_msg}
       <p>{log_msg}</p>
