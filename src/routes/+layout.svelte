@@ -1,5 +1,5 @@
 <script lang="ts">
-  import "fluent-svelte/theme.css";
+  import "fluent-svelte-extra/theme.css";
   import "./style.css";
   import "../app.css";
 

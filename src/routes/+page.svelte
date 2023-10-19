@@ -1,6 +1,6 @@
 <script lang="ts">
   import Log from "../lib/homepage/Log.svelte";
-  import { ListItem } from "fluent-svelte";
+  import { ListItem } from "fluent-svelte-extra";
   import AskPassDialog from "../lib/homepage/ask_pass_dialog.svelte";
   import { onMount } from "svelte";
   import { try_password } from "$lib/commands/password";
