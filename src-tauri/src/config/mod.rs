@@ -5,7 +5,6 @@ use std::sync::{Arc, Mutex};
 use anyhow::{anyhow, Context, Result};
 use lazy_static::lazy_static;
 use sha2::{Digest, Sha256};
-use tauri::api::path::document_dir;
 
 use crate::tls;
 
@@ -125,8 +124,8 @@ impl Config {
     }
 
     fn create_db() -> Result<rocksdb::DB> {
-        let dbdir = document_dir()
-            .context("cant find document_dir!")?
+        let dbdir = dirs_next::data_dir()
+            .context("cant find data_dir!")?
             .join("aleo-acc-service");
         let mut opts = rocksdb::Options::default();
         opts.create_if_missing(true);

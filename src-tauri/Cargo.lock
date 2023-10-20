@@ -83,6 +83,7 @@ dependencies = [
  "capture-stdio",
  "chrono",
  "clipboard-ext",
+ "dirs-next",
  "hex",
  "hkdf",
  "hyper",
