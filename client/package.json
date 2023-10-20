@@ -4,7 +4,7 @@
   "description": "A template for creating npm packages using TypeScript and VSCode",
   "main": "./lib/index.js",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/Aleo123Dev"
+    "registry": "https://npm.pkg.github.com"
   },
   "files": [
     "lib/**/*"
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Aleo123Dev/aleo-acceleration-service.git"
+    "url": "https://github.com/Aleo123Dev/aleo-acceleration-service.git"
   },
   "license": "MIT",
   "author": {
