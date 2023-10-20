@@ -1,9 +1,9 @@
 export interface DeployParams {
   private_key: string;
-  program_id: string;
-  path: string;
+  program: string;
   record: string;
-  fee?: number;
+  imports?: string;
+  priority_fee?: number;
   query?: string;
 }
 
@@ -12,7 +12,7 @@ export interface ExecuteParams {
   program_id: string;
   function: string;
   inputs: string[];
-  record?: string;
+  record?: { [key: string]: string };
   fee?: number;
   query?: string;
 }

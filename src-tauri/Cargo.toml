@@ -39,7 +39,7 @@ jsonrpc-core-client = "18.0.0"
 jsonrpc-derive = "18.0.0"
 log = { version = "0.4.20", features = ["std"] }
 anyhow = "1.0.75"
-aleowrap = { git = "https://github.com/Aleo123Dev/aleowrap.git" }
+aleowrap = { path = "../aleowrap" }
 lazy_static = "1.4.0"
 chrono = "0.4.31"
 auto-launch = "0.5.0"

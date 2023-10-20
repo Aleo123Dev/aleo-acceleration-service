@@ -1,4 +1,4 @@
-use std::sync::Arc;
+use std::{collections::HashMap, sync::Arc};
 
 use jsonrpc_core::{IoHandler, Result};
 use jsonrpc_derive::rpc;
@@ -37,10 +37,10 @@ pub trait Rpc {
     fn deploy(
         &self,
         private_key: String,
-        program_id: String,
-        path: String,
+        program: String,
         record: String,
-        fee: Option<u64>,
+        imports: Option<HashMap<String, String>>,
+        priority_fee: Option<u64>,
         query: Option<String>,
     ) -> Result<String>;
 
@@ -106,19 +106,19 @@ impl Rpc for RpcImpl {
     fn deploy(
         &self,
         private_key: String,
-        program_id: String,
-        path: String,
+        program: String,
         record: String,
-        fee: Option<u64>,
+        imports: Option<HashMap<String, String>>,
+        priority_fee: Option<u64>,
         query: Option<String>,
     ) -> Result<String> {
         log::info!(target: "rpc","executing rpc method 'deploy'");
         call_aleo_function!(deploy(
             &private_key,
-            &program_id,
-            &path,
+            &program,
             &record,
-            fee,
+            imports,
+            priority_fee,
             query.as_deref()
         ))
         .to_jsonrpc_result()

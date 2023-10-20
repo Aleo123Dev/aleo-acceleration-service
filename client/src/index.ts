@@ -82,7 +82,7 @@ export class Client {
     return digest_hex;
   }
 
-  async deployRpc(params: DeployParams) {
+  async deploy(params: DeployParams) {
     let resp = await this.fetch({
       method: 'deploy',
       params: Object.values(params),
