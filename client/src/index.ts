@@ -99,7 +99,7 @@ export class Client {
   async execute(params: ExecuteParams) {
     let resp = await this.fetch({
       method: 'execute',
-      params: params,
+      params: Object.values(params),
       jsonrpc: '2.0',
       id: 1,
     });
@@ -167,9 +167,11 @@ async function encryptData(
   key: Uint8Array
 ): Promise<ArrayBuffer> {
   let crypto;
-  if (window) {
+  if (self) {
+    crypto = self.crypto;
+  } else if (window) {
     crypto = window.crypto;
-  } else {
+  } else{
     crypto = globalThis.crypto;
   }
   let aeskey = await crypto.subtle.importKey(
@@ -179,6 +181,7 @@ async function encryptData(
     false,
     ['encrypt', 'decrypt']
   );
+
   const iv = crypto.getRandomValues(new Uint8Array(12));
   const algorithm = { name: 'AES-GCM', iv: iv };
   const encryptedData = await crypto.subtle.encrypt(algorithm, aeskey, data);
