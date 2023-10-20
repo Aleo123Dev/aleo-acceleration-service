@@ -18,7 +18,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aleo123Dev/aleo-acceleration-service.git"
+    "url": "https://github.com/Aleo123Dev/aleo-acceleration-service.git",
+    "directory": "client"
   },
   "license": "MIT",
   "author": {
