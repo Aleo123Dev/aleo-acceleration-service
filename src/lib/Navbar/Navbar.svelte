@@ -6,7 +6,7 @@
   import Maximize_Regular from "svelte-fluentui-icons/icons/Maximize_Regular.svelte";
   import LineHorizontal1_Regular from "svelte-fluentui-icons/icons/LineHorizontal1_Regular.svelte";
   import Dismiss_Regular from "svelte-fluentui-icons/icons/Dismiss_Regular.svelte";
-  import { IconButton } from "fluent-svelte-extra";
+  import { IconButton } from "fluent-svelte";
 
   import { os } from "@tauri-apps/api";
   import { onMount } from "svelte";

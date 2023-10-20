@@ -1,7 +1,7 @@
 <script lang="ts">
   import { get_server_url } from "$lib/commands/app";
   import { os_info, type Info } from "$lib/commands/os";
-  import { Button } from "fluent-svelte-extra";
+  import { Button } from "fluent-svelte";
   import { onMount } from "svelte";
 
   import Copy_Regular from "svelte-fluentui-icons/icons/Copy_Regular.svelte";

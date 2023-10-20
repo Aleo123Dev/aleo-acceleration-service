@@ -15,11 +15,6 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@bulatdashiev/svelte-slider@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/@bulatdashiev/svelte-slider/-/svelte-slider-1.0.3.tgz#a26630657e0ff812410247f58e9907609bd0a166"
-  integrity sha512-GkVyqIjzQnqy0FQIm8wqRLIOFQBQ/Ewd381Y7KwABsSwiSu0eMYO0/8s4q/wlMDDb2/+U66rXlalaUokUfw8Vg==
-
 "@esbuild/android-arm64@0.18.20":
   version "0.18.20"
   resolved "https://registry.npmjs.org/@esbuild/android-arm64/-/android-arm64-0.18.20.tgz#984b4f9c8d0377443cc2dfcef266d02244593622"
@@ -612,19 +607,9 @@ fill-range@^7.0.1:
   dependencies:
     to-regex-range "^5.0.1"
 
-fluent-svelte-extra@^1.5.5:
-  version "1.5.5"
-  resolved "https://registry.npmjs.org/fluent-svelte-extra/-/fluent-svelte-extra-1.5.5.tgz#1bc38719b80f474b313a1004d46c7c747b6842c4"
-  integrity sha512-4cSDPF51fGyMPBvONhJXEHv/e4Z2cEIeqtk2eejcLzL2xaVG1PlAaSGGIqZnNt3+S5yh9fC/9d82Mc3dQdY4cw==
-  dependencies:
-    "@bulatdashiev/svelte-slider" "^1.0.3"
-    fluent-svelte "^1.6.0"
-    focus-trap "^6.7.3"
-    tabbable "^5.2.1"
-
 fluent-svelte@^1.6.0:
   version "1.6.0"
-  resolved "https://registry.npmjs.org/fluent-svelte/-/fluent-svelte-1.6.0.tgz#7a5462e24edbb5a310a2468b9af574feaaa513bb"
+  resolved "https://registry.yarnpkg.com/fluent-svelte/-/fluent-svelte-1.6.0.tgz#7a5462e24edbb5a310a2468b9af574feaaa513bb"
   integrity sha512-z+QUvfAzh3t0bpiURO6f2eciZPnPPwl1pZe+sAYM8A8vUDSAHH8D0U4+VT+OHA16PEAd2DYVdPyJqM27ly5lxQ==
   dependencies:
     focus-trap "^6.7.3"

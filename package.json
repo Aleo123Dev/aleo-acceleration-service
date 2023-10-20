@@ -22,7 +22,7 @@
     "@tauri-apps/cli": "^1.5.2",
     "@tsconfig/svelte": "^5.0.0",
     "autoprefixer": "^10.4.14",
-    "fluent-svelte-extra": "^1.5.5",
+    "fluent-svelte": "^1.6.0",
     "postcss": "^8.4.24",
     "prettier": "^2.8.0",
     "prettier-plugin-svelte": "^2.8.1",

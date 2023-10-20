@@ -5,7 +5,7 @@
     ListItem,
     TextBox,
     TextBoxButton,
-  } from "fluent-svelte-extra";
+  } from "fluent-svelte";
 
   import Folder_Regular from "svelte-fluentui-icons/icons/Folder_Regular.svelte";
   import { open as opendialog } from "@tauri-apps/api/dialog";
