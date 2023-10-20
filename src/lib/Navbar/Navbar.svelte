@@ -51,7 +51,7 @@
       <IconButton
         class="w-12 h-8"
         id="titlebar-close"
-        on:click={() => appWindow.close()}
+        on:click={() => appWindow.hide()}
       >
         <Dismiss_Regular alt="close" />
       </IconButton>

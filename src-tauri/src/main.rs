@@ -124,7 +124,7 @@ async fn main() {
 
             #[cfg(target_os = "windows")]
             if is_win11() {
-                apply_mica(&window)
+                apply_mica(&window,None)
                     .expect("Unsupported platform! 'apply_mica' is only supported on Windows11");
             }
 
