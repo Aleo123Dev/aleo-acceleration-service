@@ -1,8 +1,11 @@
 {
   "name": "aleo-acc-client",
-  "version": "0.0.0-development",
+  "version": "0.0.8",
   "description": "A template for creating npm packages using TypeScript and VSCode",
   "main": "./lib/index.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Aleo123Dev"
+  },
   "files": [
     "lib/**/*"
   ],
