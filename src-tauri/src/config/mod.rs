@@ -52,7 +52,7 @@ pub async fn try_password() -> Result<bool, String> {
 #[derive(Clone)]
 pub struct Config {
     pub db: Option<Arc<rocksdb::DB>>,
-    pub password: Option<String>,
+    pub password: Option<secure_string::SecureString>,
 }
 
 const PASSWORD_TEST: &str = "hello world!";
@@ -92,13 +92,13 @@ impl Config {
                 }
             }
         };
-        self.password = Some(password.to_string());
+        self.password = Some(secure_string::SecureString::from(password.to_string()));
         Ok(())
     }
 
     pub fn set_password(&mut self, password: &str) -> Result<()> {
         let db = self.db.clone().context("cant get db")?;
-        self.password = Some(password.to_string());
+        self.password = Some(secure_string::SecureString::from(password.to_string()));
         self.create_secret_key().context("create server secret")?;
         match password {
             "" => {
@@ -140,11 +140,11 @@ impl Config {
 
         match &self.password {
             Some(v) => {
-                if v == "" {
+                if v.unsecure() == "" {
                     db.put("secret_key", &secret_key)
                         .context("cant write to db")?;
                 } else {
-                    let encrypt_key = hash(v);
+                    let encrypt_key = hash(v.unsecure());
                     let encrypted = tls::aes::aes_encode(&encrypt_key, &secret_key)?;
                     db.put("secret_key", &encrypted)
                         .context("cant write to db")?;
@@ -170,11 +170,11 @@ impl Config {
             .password
             .clone()
             .context("database not decrypted")?
-            .as_ref()
+            .unsecure()
         {
             "" => return Ok(value),
             _ => {
-                let encrypt_key = hash(self.password.clone().context("no password")?.as_ref());
+                let encrypt_key = hash(self.password.clone().context("no password")?.unsecure());
                 let decrypted = tls::aes::aes_decode(&encrypt_key, &value)?;
                 return Ok(decrypted);
             }

@@ -55,6 +55,7 @@ os_info = { version = "3.7.0", features = ["serde"] }
 window-shadows = "0.2.2"
 window-vibrancy = "0.4.2"
 clipboard-ext = "0.2.0"
+secure-string = "0.3.0"
 
 [dev-dependencies]
 
