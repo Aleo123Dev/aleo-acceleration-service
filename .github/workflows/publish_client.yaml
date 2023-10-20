@@ -20,7 +20,7 @@ jobs:
         working-directory: client
       - run: yarn build
         working-directory: client
-      - run: yarn publish --non-interactive
+      - run: yarn publish
         working-directory: client
         env:
-          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
