@@ -43,9 +43,15 @@ export class Client {
 
     let serverConf = await Client.checkService(serverurl.toString());
 
+    if (serverConf.result.version) {
+      if (compareVersions(serverConf.result.version, '0.0.8') < 0) {
+        throw 'server version is too old: ' + serverConf.result.version;
+      }
+    } else {
+      throw 'cant get server version';
+    }
+
     let serverPubKey;
-
-
 
     if (serverConf.result.pubkey) {
       let serverPubKeyHex = serverConf.result.pubkey;
@@ -54,8 +60,6 @@ export class Client {
       if (ExpectServerfingerPrint == serverFingerPrint) {
         serverPubKey = hexToBytes(serverPubKeyHex);
       } else {
-        console.log("ExpectServerfingerPrint", ExpectServerfingerPrint)
-        console.log("serverFingerPrint", serverFingerPrint)
         throw 'server finger print does not match';
       }
       serverPubKey = hexToBytes(serverPubKeyHex);
@@ -185,4 +189,19 @@ async function encryptData(
   result.set(encryptedBuffer, iv.length);
 
   return result.buffer;
+}
+
+function compareVersions(version1: string, version2: string) {
+  const parts1 = version1.split('.').map(Number);
+  const parts2 = version2.split('.').map(Number);
+
+  for (let i = 0; i < parts1.length; i++) {
+    if (parts1[i] > parts2[i]) {
+      return 1;
+    } else if (parts1[i] < parts2[i]) {
+      return -1;
+    }
+  }
+
+  return 0;
 }
