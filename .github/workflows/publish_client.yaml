@@ -23,4 +23,4 @@ jobs:
       - run: yarn publish --non-interactive
         working-directory: client
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
