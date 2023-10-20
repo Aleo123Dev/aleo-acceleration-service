@@ -113,11 +113,7 @@ async fn aes_decode_middleware(req: Request<Body>) -> Response<Body> {
         }
     };
 
-    info!("shared: {:#?}", shared);
-
     let aes_key = tls::shared_secret_to_symmetric_secret(&shared);
-
-    info!("aes_key: {:#?}", aes_key);
 
     let decoded_body = match tls::aes::aes_decode(&aes_key, &body_bytes) {
         Ok(v) => v,
