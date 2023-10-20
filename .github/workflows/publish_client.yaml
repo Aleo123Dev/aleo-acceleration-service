@@ -14,7 +14,6 @@ jobs:
         with:
           node-version: "20.x"
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@Aleo123Dev'
           cache: 'yarn'
           cache-dependency-path: client/yarn.lock
       - run: yarn install --frozen-lockfile 
@@ -24,4 +23,4 @@ jobs:
       - run: yarn publish
         working-directory: client
         env:
-          NPM_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
