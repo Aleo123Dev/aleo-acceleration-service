@@ -6,7 +6,7 @@ use hyper::service::{make_service_fn, service_fn};
 use hyper::{Body, Request, Response, StatusCode};
 use jsonrpc_core::types::request::Request as JsonRpcRequest;
 use jsonrpc_core::{Id, MethodCall, Params};
-use log::info;
+use log::{info, debug};
 use serde_json::{from_slice, Value};
 use tokio::sync::oneshot::Sender;
 
@@ -156,7 +156,6 @@ async fn handle_rpc(req: Request<Body>) -> Response<Body> {
     // Parse the request body as JSON-RPC request
     let decoded_body: JsonRpcRequest = match from_slice(&body_bytes) {
         Ok(request) => {
-            info!("request: {:#?}", request);
             request
         }
         Err(_) => {
@@ -166,8 +165,6 @@ async fn handle_rpc(req: Request<Body>) -> Response<Body> {
                 .unwrap();
         }
     };
-
-    println!("Received JSON-RPC request: {:?}", decoded_body);
 
     let res = super::rpc::RPC_HANDER
         .handle_rpc_request(decoded_body)
