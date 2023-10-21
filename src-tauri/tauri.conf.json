@@ -57,6 +57,16 @@
       "macOS": {
         "signingIdentity": null,
         "minimumSystemVersion": "10.15.0"
+      },
+      "deb": {
+        "depends": [
+          "librocksdb-dev",
+          "libssl3",
+          "libxcb-shape0",
+          "libxcb-xfixes0",
+          "libc6",
+          "libstdc++6"
+        ]
       }
     },
     "security": {
