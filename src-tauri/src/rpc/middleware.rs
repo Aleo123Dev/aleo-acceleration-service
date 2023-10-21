@@ -151,8 +151,6 @@ async fn handle_rpc(req: Request<Body>) -> Response<Body> {
     let (_, body) = req.into_parts();
     let body_bytes = hyper::body::to_bytes(body).await.unwrap();
 
-    info!("body: {}", String::from_utf8(body_bytes.to_vec()).unwrap());
-
     // Parse the request body as JSON-RPC request
     let decoded_body: JsonRpcRequest = match from_slice(&body_bytes) {
         Ok(request) => request,
