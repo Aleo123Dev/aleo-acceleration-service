@@ -53,9 +53,9 @@ async fn main() {
     tokio::spawn(async {
         let mut piped_stdout =
             <capture_stdio::PipedStdout as capture_stdio::Capture>::capture().unwrap();
-        let mut output = String::new();
+        let mut buf_reader = BufReader::new(piped_stdout.get_reader());
         loop {
-            let mut buf_reader = BufReader::new(piped_stdout.get_reader());
+            let mut output = String::new();
             std::io::BufRead::read_line(&mut buf_reader, &mut output).unwrap();
             log::info!("{}", output);
         }
