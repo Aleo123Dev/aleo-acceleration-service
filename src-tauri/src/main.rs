@@ -36,6 +36,7 @@ const MENU_ITEM_AUTO_START: &str = "auto_start";
 const MENU_ITEM_QUIT: &str = "quit";
 const MENU_ITEM_ABOUT: &str = "about";
 const MENUITEM_COPY_ADDR: &str = "copy server address";
+const MENUITEM_SHOW: &str = "show window";
 
 #[derive(Clone, serde::Serialize)]
 struct Payload {
@@ -60,6 +61,7 @@ async fn main() {
         }
     });
 
+    let show = CustomMenuItem::new(MENUITEM_SHOW, "show window");
     let copy_addr = CustomMenuItem::new(MENUITEM_COPY_ADDR, "copy server address");
     let quit = CustomMenuItem::new(MENU_ITEM_QUIT, "Quit").accelerator("Cmd+Q");
     let auto_start = match auto_start::AUTO_LAUNCH.as_ref() {
@@ -80,6 +82,7 @@ async fn main() {
     let about = CustomMenuItem::new(MENU_ITEM_ABOUT, "About");
 
     let system_tray_menu = SystemTrayMenu::new()
+        .add_item(show)
         .add_item(auto_start)
         .add_item(copy_addr)
         .add_item(about)
@@ -124,7 +127,7 @@ async fn main() {
 
             #[cfg(target_os = "windows")]
             if is_win11() {
-                apply_mica(&window,None)
+                apply_mica(&window, None)
                     .expect("Unsupported platform! 'apply_mica' is only supported on Windows11");
             }
 
@@ -156,6 +159,12 @@ async fn main() {
                 }
             }
             SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
+                MENUITEM_SHOW => {
+                    let handle = app.app_handle();
+                    if let Some(window) = handle.get_window("main") {
+                        let _ = window.show();
+                    };
+                }
                 MENU_ITEM_QUIT => {
                     println!("system tray received quit");
                     std::process::exit(0);
