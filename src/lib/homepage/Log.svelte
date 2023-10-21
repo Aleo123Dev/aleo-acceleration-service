@@ -22,7 +22,7 @@
   }
 </script>
 
-<div style="text-align: left;">
+<div class="whitespace-pre-wrap text-left text-sm leading-loose overflow-auto">
   {#each logs as log_msg}
     <p>{log_msg}</p>
   {/each}

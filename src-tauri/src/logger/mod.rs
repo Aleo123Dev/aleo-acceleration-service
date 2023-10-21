@@ -45,7 +45,7 @@ impl Log for MemoryLogger {
 }
 
 pub fn setup_logger() {
-    let max_lines = 5000;
+    let max_lines = 1000;
     let logger = Box::new(MemoryLogger::new(max_lines));
     log::set_boxed_logger(logger).unwrap();
     log::set_max_level(log::LevelFilter::Info);
