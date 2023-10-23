@@ -1,6 +1,6 @@
 {
   "name": "@aleo123dev/aleo-acc-client",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A template for creating npm packages using TypeScript and VSCode",
   "main": "./lib/index.js",
   "publishConfig": {

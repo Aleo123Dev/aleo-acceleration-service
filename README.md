@@ -11,7 +11,6 @@
 - you need to enable application from any source, drag the app to application folder, then run the following command:
 
 ```bash
-sudo xattr -r -d com.apple.quarantine
 sudo xattr -r -d com.apple.quarantine /Applications/aleo-acc-service.app
 ```
 

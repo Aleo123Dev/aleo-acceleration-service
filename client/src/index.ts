@@ -46,7 +46,7 @@ export class Client {
     let serverConf = await Client.checkService(serverurl.toString());
 
     if (serverConf.result.version) {
-      if (compareVersions(serverConf.result.version, '0.0.8') < 0) {
+      if (compareVersions(serverConf.result.version, '0.0.9') < 0) {
         throw 'server version is too old: ' + serverConf.result.version;
       }
     } else {
