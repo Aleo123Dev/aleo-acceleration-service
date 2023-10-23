@@ -27,7 +27,7 @@ use tauri::{
     generate_handler, CustomMenuItem, Manager, SystemTray, SystemTrayEvent, SystemTrayMenu,
 };
 
-use config::{has_password, input_password, set_password, try_password};
+use config::{get_proxy, has_password, input_password, set_password, set_proxy, try_password};
 use logger::get_logs;
 use os::{is_win11, os_info};
 use rpc::{run_rpc_server, stop_rpc_server};
@@ -95,6 +95,8 @@ async fn main() {
             run_rpc_server,
             is_win11,
             os_info,
+            set_proxy,
+            get_proxy,
             get_server_url,
             has_password,
             input_password,
@@ -295,6 +297,8 @@ async fn main() {
             return;
         }
     }
+
+    _ = config::init();
 
     #[allow(unused)]
     app.run(|app, event| {});

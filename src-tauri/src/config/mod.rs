@@ -1,6 +1,9 @@
 pub mod consts;
 
-use std::sync::{Arc, Mutex};
+use std::{
+    env,
+    sync::{Arc, Mutex},
+};
 
 use anyhow::{anyhow, Context, Result};
 use lazy_static::lazy_static;
@@ -48,6 +51,21 @@ pub async fn try_password() -> Result<bool, String> {
         return Ok(true);
     }
     Ok(config.decrypt_config("").is_ok())
+}
+
+#[tauri::command]
+pub fn set_proxy(proxy: String) {
+    if let Ok(()) = Config::get_config().set_proxy(&proxy) {
+        set_proxy_env(&proxy)
+    }
+}
+
+#[tauri::command]
+pub fn get_proxy() -> Result<Option<String>, String> {
+    let proxy = Config::get_config()
+        .get_proxy()
+        .map_err(|e| e.to_string())?;
+    Ok(proxy)
 }
 
 #[derive(Clone)]
@@ -182,6 +200,19 @@ impl Config {
             }
         }
     }
+
+    pub fn set_proxy(&self, proxy: &str) -> Result<()> {
+        let db = self.db.clone().context("cant get db")?;
+        db.put("proxy", proxy).context("cant write to db")
+    }
+
+    pub fn get_proxy(&self) -> Result<Option<String>> {
+        let db = self.db.clone().context("cant get db")?;
+        match db.get("proxy").context("cant read db")? {
+            Some(v) => Ok(Some(String::from_utf8(v).unwrap_or_default())),
+            None => Ok(None),
+        }
+    }
 }
 
 pub fn hash(str: &str) -> Vec<u8> {
@@ -189,4 +220,19 @@ pub fn hash(str: &str) -> Vec<u8> {
     hasher.update(str);
     let result = hasher.finalize();
     result.to_vec()
+}
+
+pub async fn init() -> Result<()> {
+    if let Ok(proxy) = Config::get_config().get_proxy() {
+        if proxy.is_some() {
+            set_proxy_env(proxy.unwrap().as_str());
+        }
+    }
+    Ok(())
+}
+
+fn set_proxy_env(proxy: &str) {
+    env::set_var("http_proxy", &proxy);
+    env::set_var("https_proxy", &proxy);
+    env::set_var("all_proxy", &proxy);
 }
