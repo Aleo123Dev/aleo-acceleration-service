@@ -44,10 +44,13 @@
   </p>
 
   <div>
-    <p class="my-2">set password</p>
-    <TextBox type="text" bind:value={newpassword} on:input />
-    <p class="my-2">confirm password</p>
-    <TextBox bind:value={newpassword_confirm} />
+    <form on:submit={submit}>
+      <p class="my-2">set password</p>
+      <TextBox type="text" bind:value={newpassword} on:input />
+      <p class="my-2">confirm password</p>
+      <TextBox bind:value={newpassword_confirm} />
+      <button type="submit" style="display: none;" />
+    </form>
   </div>
   {#if errmsg}
     <p>{errmsg}</p>

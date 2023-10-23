@@ -62,15 +62,18 @@
   {/if}
 
   <div>
-    {#if should_set_password}
-      <p class="my-2">set password</p>
-      <TextBox type="text" bind:value={newpassword} on:input />
-      <p class="my-2">confirm password</p>
-      <TextBox bind:value={newpassword_confirm} />
-    {:else}
-      <p class="my-2">app password</p>
-      <TextBox bind:value={password} />
-    {/if}
+    <form on:submit={submit}>
+      {#if should_set_password}
+        <p class="my-2">set password</p>
+        <TextBox type="text" bind:value={newpassword} on:input />
+        <p class="my-2">confirm password</p>
+        <TextBox bind:value={newpassword_confirm} />
+      {:else}
+        <p class="my-2">app password</p>
+        <TextBox bind:value={password} />
+      {/if}
+      <button type="submit" style="display: none;" />
+    </form>
   </div>
   {#if errmsg}
     <p>{errmsg}</p>
