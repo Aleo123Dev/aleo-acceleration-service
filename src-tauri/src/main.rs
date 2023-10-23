@@ -10,7 +10,8 @@ mod rpc;
 mod service;
 mod tls;
 
-use std::io::BufReader;
+use anyhow::Result;
+use std::{io::BufReader, process::Command};
 
 use clipboard_ext::prelude::*;
 use clipboard_ext::x11_fork::ClipboardContext;
@@ -288,6 +289,23 @@ async fn main() {
         drop(handle);
     }
 
+    #[cfg(target_os = "macos")]
+    if let Ok(running) = is_another_instance_running(&app.config().tauri.bundle.identifier) {
+        if running {
+            return;
+        }
+    }
+
     #[allow(unused)]
     app.run(|app, event| {});
+}
+
+fn is_another_instance_running(bundle_identifier: &str) -> Result<bool> {
+    let output = Command::new("pgrep")
+        .arg("-x")
+        .arg("-f")
+        .arg(&bundle_identifier)
+        .output()?;
+
+    Ok(output.status.success())
 }
