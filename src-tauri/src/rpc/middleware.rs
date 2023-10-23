@@ -6,7 +6,6 @@ use hyper::service::{make_service_fn, service_fn};
 use hyper::{Body, Request, Response, StatusCode};
 use jsonrpc_core::types::request::Request as JsonRpcRequest;
 use jsonrpc_core::{Id, MethodCall, Params};
-use log::info;
 use serde_json::{from_slice, Value};
 use tokio::sync::oneshot::Sender;
 

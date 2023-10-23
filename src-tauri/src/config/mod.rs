@@ -18,6 +18,7 @@ pub async fn input_password(password: String) -> Result<(), String> {
     let mut config = CONFIG.lock().unwrap();
     config
         .decrypt_config(password.as_str())
+        .context("wrong password")
         .map_err(|e| e.to_string())?;
     Ok(())
 }
@@ -28,6 +29,7 @@ pub async fn set_password(password: String) -> Result<(), String> {
 
     config
         .set_password(password.as_str())
+        .context("failed to set password")
         .map_err(|e| e.to_string())?;
     Ok(())
 }
@@ -85,7 +87,8 @@ impl Config {
             }
             _ => {
                 let encrypt_key = hash(password);
-                let decrypted = tls::aes::aes_decode(&encrypt_key, &pass_test)?;
+                let decrypted =
+                    tls::aes::aes_decode(&encrypt_key, &pass_test).context("cant decode db")?;
                 if decrypted != PASSWORD_TEST.as_bytes() {
                     return Err(anyhow!("password is wrong"));
                 }
