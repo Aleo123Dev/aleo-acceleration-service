@@ -10,6 +10,8 @@ import {
   JsonRpcResult,
   DiscoveryResult,
   JsonRpcRequest,
+  DeploymentCostParams,
+  ExecutionCostParams,
 } from './types';
 import { bytesToHex, hexToBytes } from '@noble/curves/abstract/utils';
 
@@ -136,6 +138,26 @@ export class Client {
     return resp.json();
   }
 
+  async deployment_cost(params: DeploymentCostParams) {
+    let resp = await this.fetch({
+      method: 'deployment_cost',
+      params: Object.values(params),
+      jsonrpc: '2.0',
+      id: 1,
+    });
+    return resp.json();
+  }
+
+  async execution_cost(params: ExecutionCostParams) {
+    let resp = await this.fetch({
+      method: 'execution_cost',
+      params: Object.values(params),
+      jsonrpc: '2.0',
+      id: 1,
+    });
+    return resp.json();
+  }
+
   async fetch(body: JsonRpcRequest<any>): Promise<Response> {
     let body_json = JSON.stringify(body);
 
@@ -171,7 +193,7 @@ async function encryptData(
     crypto = self.crypto;
   } else if (window) {
     crypto = window.crypto;
-  } else{
+  } else {
     crypto = globalThis.crypto;
   }
   let aeskey = await crypto.subtle.importKey(

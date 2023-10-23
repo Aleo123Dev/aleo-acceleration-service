@@ -2,7 +2,7 @@ export interface DeployParams {
   private_key: string;
   program: string;
   record: string;
-  imports?: string;
+  imports?: Map<string, string>;
   priority_fee?: number;
   query?: string;
 }
@@ -42,6 +42,19 @@ export interface SplitParams {
   record: string;
   amount: number;
   query?: string;
+}
+
+export interface DeploymentCostParams {
+  program: String,
+  imports?: Map<string, string>,
+}
+
+export interface ExecutionCostParams {
+  private_key: string,
+  program_id: string,
+  function: string,
+  inputs: string[],
+  query?: string,
 }
 
 export interface JsonRpcResult<T> {

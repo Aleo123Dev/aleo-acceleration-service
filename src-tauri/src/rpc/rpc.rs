@@ -89,6 +89,23 @@ pub trait Rpc {
         query: Option<String>,
     ) -> Result<String>;
 
+    #[rpc(name = "deployment_cost")]
+    fn deployment_cost(
+        &self,
+        program: String,
+        imports: Option<HashMap<String, String>>,
+    ) -> Result<String>;
+
+    #[rpc(name = "execution_cost")]
+    fn execution_cost(
+        &self,
+        private_key: String,
+        program_id: String,
+        function: String,
+        inputs: Vec<String>,
+        query: Option<String>,
+    ) -> Result<String>;
+
     #[rpc(name = "discovery")]
     fn discovery(&self) -> Result<Discovery>;
 }
@@ -210,6 +227,37 @@ impl Rpc for RpcImpl {
             .log_rpc_error("split")
     }
 
+    fn deployment_cost(
+        &self,
+        program: String,
+        imports: Option<HashMap<String, String>>,
+    ) -> Result<String> {
+        log::info!(target: "rpc","executing rpc method 'deployment_cost'");
+        call_aleo_function!(deployment_cost(&program, imports))
+            .to_jsonrpc_result()
+            .log_rpc_error("split")
+    }
+
+    fn execution_cost(
+        &self,
+        private_key: String,
+        program_id: String,
+        function: String,
+        inputs: Vec<String>,
+        query: Option<String>,
+    ) -> Result<String> {
+        log::info!(target: "rpc","executing rpc method 'execution_cost'");
+        call_aleo_function!(execution_cost(
+            &private_key,
+            &program_id,
+            &function,
+            inputs,
+            query.as_deref()
+        ))
+        .to_jsonrpc_result()
+        .log_rpc_error("split")
+    }
+
     fn discovery(&self) -> Result<Discovery> {
         log::info!(target: "rpc","executing rpc method 'discovery'");
         let client_secret = Config::get_config().get_secret_key().to_jsonrpc_result()?;
@@ -221,6 +269,8 @@ impl Rpc for RpcImpl {
                 "transfer".to_string(),
                 "join".to_string(),
                 "split".to_string(),
+                "deployment_cost".to_string(),
+                "execution_cost".to_string(),
             ],
             pubkey: hex::encode(tls::get_p256_pubkey(&client_secret)),
         })
