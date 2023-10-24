@@ -18,11 +18,14 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
           cache: "yarn"
           cache-dependency-path: client/yarn.lock
+      - name: Git Version
+        id: version
+        uses: codacy/git-version@2.7.1
       - run: yarn install --frozen-lockfile
         working-directory: client
       - run: yarn build
         working-directory: client
-      - run: yarn publish
+      - run: yarn publish --new-version ${{ steps.version.outputs.version }}
         working-directory: client
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
