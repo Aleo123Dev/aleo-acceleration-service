@@ -3,9 +3,6 @@
   "version": "0.0.9",
   "description": "A template for creating npm packages using TypeScript and VSCode",
   "main": "./lib/index.js",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "files": [
     "lib/**/*"
   ],
