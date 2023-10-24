@@ -45,7 +45,8 @@ a:hover {
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: var(--primary);
+	background-color: var(--secondary);
+	opacity: 0.6;
 	border-radius: 10px;
 	/* border: 0px solid var(--primary); */
 }

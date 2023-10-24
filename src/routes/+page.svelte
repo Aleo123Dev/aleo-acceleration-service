@@ -58,7 +58,7 @@
   <div class="pl-4 grow pt-4 h-full pr-8 pb-4">
     <div class="h-full overflow-hidden break-all">
       <div
-        class="h-full overflow-y-hidden hover:overflow-y-auto scroll-smooth flex flex-col"
+        class="h-full overflow-y-auto scroll-smooth flex flex-col"
       >
         <svelte:component this={selectedUi} />
       </div>

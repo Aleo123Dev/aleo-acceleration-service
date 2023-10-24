@@ -4,15 +4,21 @@
   import { Button, TextBox } from "fluent-svelte";
   import { onMount } from "svelte";
 
-  import Copy_Regular from "svelte-fluentui-icons/icons/Copy_Regular.svelte";
+  import LinkMultiple_Regular from "svelte-fluentui-icons/icons/LinkMultiple_Regular.svelte";
+  import CatchUp_Regular from "svelte-fluentui-icons/icons/CatchUp_Regular.svelte";
+  import LockClosedKey_Regular from "svelte-fluentui-icons/icons/LockClosedKey_Regular.svelte";
+  import Info_Regular from "svelte-fluentui-icons/icons/Info_Regular.svelte";
+
   import SetPassDialog from "./set_pass_dialog.svelte";
   import { clipboard, tauri } from "@tauri-apps/api";
   import { get_proxy, set_proxy } from "$lib/commands/config";
+  import SetProxyDialog from "./set_proxy_dialog.svelte";
 
   let server_url;
   let osinfo: Info;
 
   let showpassdialog = false;
+  let showproxydialog = false;
   let proxy = "";
 
   onMount(async () => {
@@ -20,50 +26,72 @@
     osinfo = await os_info();
     proxy = await get_proxy();
   });
-
-  function set_http_proxy() {
-    set_proxy(proxy);
-  }
 </script>
 
 <SetPassDialog bind:open={showpassdialog} />
+<SetProxyDialog
+  bind:open={showproxydialog}
+  onsubmit={async () => {
+    proxy = await get_proxy();
+  }}
+/>
 <div>
-  <div>
-    <h2>Server url:</h2>
-  </div>
-  <div class="flex my-4">
-    <p class="break-all mx-5">{server_url}</p>
+  <div class="setting">
+    <div class="flex items-center">
+      <LinkMultiple_Regular class="mr-2" />
+      <p>Server url</p>
+    </div>
     <Button
-      variant="hyperlink"
+      variant="standard"
       on:click={async () => {
         clipboard.writeText(server_url);
       }}
     >
-      <Copy_Regular alt="copy" size="35" />
+      copy
     </Button>
   </div>
-
-  <div class="my-4">
-    <h2>Password</h2>
+  <div class="settingContent">
+    <p class="break-all">{server_url}</p>
   </div>
-  <div class="mx-5">
-    <Button variant="accent" on:click={() => (showpassdialog = true)}
+
+  <div class="setting">
+    <div class="flex items-center">
+      <LockClosedKey_Regular class="mr-2" />
+      <p>Password</p>
+    </div>
+    <Button variant="standard" on:click={() => (showpassdialog = true)}
       >reset password</Button
     >
   </div>
 
-  <div class="my-4">
-    <h2>Proxy</h2>
-  </div>
-  <div class="mx-5">
-    <TextBox class="my-4" bind:value={proxy} />
-    <Button variant="accent" on:click={set_http_proxy}>set http proxy</Button>
+  <div class="setting">
+    <div class="flex items-center">
+      <CatchUp_Regular class="mr-2" />
+      <div>
+        <p>Proxy</p>
+        <p class="text-xs">{proxy}</p>
+      </div>
+    </div>
+
+    <Button
+      variant="standard"
+      on:click={() => {
+        showproxydialog = true;
+      }}>set http proxy</Button
+    >
   </div>
 
-  <div class="my-4">
-    <h2>System:</h2>
+  <div class="setting">
+    <div class="flex items-center">
+      <Info_Regular class="mr-2" />
+      <p>System</p>
+    </div>
+    <Button
+      variant="standard"
+      on:click={() => clipboard.writeText(JSON.stringify(osinfo))}>copy</Button
+    >
   </div>
-  <div class="mx-5">
+  <div class="settingContent">
     {#if osinfo}
       <p>type: {osinfo.os_type}</p>
       <p>edition: {osinfo.edition}</p>
@@ -73,3 +101,14 @@
     {/if}
   </div>
 </div>
+
+<style>
+  .setting {
+    height: 55px;
+    @apply mt-2 px-4 card flex justify-between items-center;
+  }
+
+  .settingContent {
+    @apply card px-12 py-4 text-sm;
+  }
+</style>

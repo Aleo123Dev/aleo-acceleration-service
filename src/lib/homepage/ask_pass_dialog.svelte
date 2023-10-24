@@ -79,7 +79,7 @@
     <p>{errmsg}</p>
   {/if}
   <svelte:fragment slot="footer">
-    <Button variant="accent" on:click={submit}>Submit</Button>
+    <Button variant="standard" on:click={submit}>Submit</Button>
     {#if !should_set_password}
       <Button on:click={() => (should_set_password = true)}
         >Reset password</Button

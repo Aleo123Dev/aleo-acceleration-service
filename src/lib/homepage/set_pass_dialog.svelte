@@ -56,6 +56,6 @@
     <p>{errmsg}</p>
   {/if}
   <svelte:fragment slot="footer">
-    <Button variant="accent" on:click={submit}>Submit</Button>
+    <Button variant="standard" on:click={submit}>Submit</Button>
   </svelte:fragment>
 </ContentDialog>
