@@ -23,8 +23,8 @@ switch (platform) {
         break;
     case 'win32':
         {
-            const folderPath = 'target/release/bundle/msi';
-            exec(`explorer "${folderPath}"`, handle_res);
+            const folderPath = 'target\\release\\bundle\\msi';
+            exec(`explorer ${folderPath}`, handle_res);
         }
         break;
     case 'linux':
