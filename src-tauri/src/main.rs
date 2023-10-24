@@ -31,7 +31,7 @@ use config::{get_proxy, has_password, input_password, set_password, set_proxy, t
 use logger::get_logs;
 use os::{is_win11, os_info};
 use rpc::{run_rpc_server, stop_rpc_server};
-use service::app::get_server_url;
+use service::app::{get_build_info, get_server_url};
 
 const MENU_ITEM_AUTO_START: &str = "auto_start";
 const MENU_ITEM_QUIT: &str = "quit";
@@ -98,6 +98,7 @@ async fn main() {
             set_proxy,
             get_proxy,
             get_server_url,
+            get_build_info,
             has_password,
             input_password,
             set_password,

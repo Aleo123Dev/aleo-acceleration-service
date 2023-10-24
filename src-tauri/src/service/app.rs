@@ -1,4 +1,5 @@
 use anyhow::Result;
+use serde::Serialize;
 use std::sync::{Arc, Mutex};
 use tauri::{api::dialog, Manager};
 
@@ -51,4 +52,21 @@ fn get_server_fingerprint() -> Result<String> {
 
     let fingerprint_str = hex::encode(fingerprint);
     Ok(fingerprint_str)
+}
+
+#[derive(Debug, Serialize)]
+pub struct BuildInfo {
+    pub time: String,
+    pub commit: String,
+}
+
+pub const BUILD_TIME: &str = include_str!(concat!(env!("OUT_DIR"), "/build_time"));
+pub const GIT_COMMIT: &str = include_str!(concat!(env!("OUT_DIR"), "/git_commit"));
+
+#[tauri::command]
+pub fn get_build_info() -> BuildInfo {
+    let commit = GIT_COMMIT.to_string();
+    let time = BUILD_TIME.to_string();
+
+    BuildInfo { time, commit }
 }

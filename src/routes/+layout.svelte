@@ -6,7 +6,7 @@
   import Navbar from "$lib/Navbar/Navbar.svelte";
   import { onMount } from "svelte";
   import { isWin11 } from "$lib/commands/os";
-  import { os } from "@tauri-apps/api";
+  import { os, path } from "@tauri-apps/api";
 
   function add_drag_region() {
     const targetNode = window.document.body;
@@ -70,7 +70,9 @@
   });
 </script>
 
-<Navbar />
+{#if window.location.pathname != "/about"}
+  <Navbar />
+{/if}
 
 <main class="h-full">
   <slot />

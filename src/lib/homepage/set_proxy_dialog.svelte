@@ -17,7 +17,6 @@
 
   async function read_proxy() {
     try {
-      console.log("aaaa");
       let proxy_url = new URL(await get_proxy());
       proxy = proxy_url.host;
       proxy_port = proxy_url.port;

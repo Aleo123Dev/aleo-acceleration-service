@@ -1,20 +1,20 @@
 :root,
 body {
-	height: 100%;
-	width: 100%;
-	overflow: hidden;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 
-	--navbar-height: 64px;
+  --navbar-height: 64px;
 }
 
 main {
-	@apply h-full;
-	/* overflow: auto; */
-	/* overflow: overlay; */
-	/* padding-top: var(--navbar-height); */
-	/* background-color: var(--fds-card-background-secondary); */
+  @apply h-full;
+  /* overflow: auto; */
+  /* overflow: overlay; */
+  /* padding-top: var(--navbar-height); */
+  /* background-color: var(--fds-card-background-secondary); */
 }
 
 main > * {
-	padding-top: var(--navbar-height);
+  padding-top: var(--navbar-height);
 }

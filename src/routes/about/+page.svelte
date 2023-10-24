@@ -2,6 +2,6 @@
   import About from "$lib/homepage/about.svelte";
 </script>
 
-<main class="container">
+<div class="container">
   <About />
-</main>
+</div>
