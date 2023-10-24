@@ -3,59 +3,62 @@
 @tailwind utilities;
 
 @layer components {
-	.card {
-		background: var(--card-background);
-		@apply border;
-		border: 1px solid var(--fds-card-stroke-default);
-		border-radius: var(--fds-control-corner-radius);
-	}
+  .card {
+    background: var(--card-background);
+    @apply border;
+    border: 1px solid var(--fds-card-stroke-default);
+    border-radius: var(--fds-control-corner-radius);
+  }
+
+  .card-hover {
+    background: var(--card-background-hover);
+  }
 }
 
 :root {
-	--primary: var(--fds-accent-default);
-	--secondary: #222222;
-	--card-background: var(--fds-card-background-default);
-	color: var(--secondary);
-	/* background: transparent; */
-	/* background-color: var(--fds-solid-background-base); */
-	/* background-color: #f0f3f9; */
+  --primary: var(--fds-accent-default);
+  --secondary: #222222;
+  --card-background: var(--fds-card-background-secondary);
+  --card-background-hover: var(--fds-card-background-default);
+  color: var(--secondary);
+  /* background: transparent; */
+  /* background-color: var(--fds-solid-background-base); */
+  /* background-color: #f0f3f9; */
 }
 
 @media (prefers-color-scheme: dark) {
-	:root {
-		--primary: var(--fds-accent-default);
-		--secondary: white;
-		--card-background: var(--fds-card-background-default);
-		/* background-color: #221f22; */
-	}
+  :root {
+    --secondary: white;
+    /* background-color: #221f22; */
+  }
 }
 
 a:hover {
-	color: var(--primary);
+  color: var(--primary);
 }
 
 *::-webkit-scrollbar {
-	width: 2px;
-	/* width: 0;
+  width: 2px;
+  /* width: 0;
 	height: 0; */
 }
 
 *::-webkit-scrollbar-track {
-	background: transparent;
+  background: transparent;
 }
 
 *::-webkit-scrollbar-thumb {
-	background-color: var(--secondary);
-	opacity: 0.6;
-	border-radius: 10px;
-	/* border: 0px solid var(--primary); */
+  background-color: var(--secondary);
+  opacity: 0.6;
+  border-radius: 10px;
+  /* border: 0px solid var(--primary); */
 }
 
 .container {
-	margin: 0;
-	padding-top: 10vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
-  }
+  margin: 0;
+  padding-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}

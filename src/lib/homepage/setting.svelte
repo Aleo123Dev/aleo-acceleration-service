@@ -108,6 +108,10 @@
     @apply mt-2 px-4 card flex justify-between items-center;
   }
 
+  .setting:hover {
+    @apply card-hover;
+  }
+
   .settingContent {
     @apply card px-12 py-4 text-sm;
   }
