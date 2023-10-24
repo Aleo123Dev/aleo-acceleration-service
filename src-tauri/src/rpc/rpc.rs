@@ -38,9 +38,9 @@ pub trait Rpc {
         &self,
         private_key: String,
         program: String,
-        record: String,
+        fee_record: Option<String>,
         imports: Option<HashMap<String, String>>,
-        priority_fee: Option<u64>,
+        priority_fee_in_microcredits: Option<u64>,
         query: Option<String>,
     ) -> Result<String>;
 
@@ -124,18 +124,18 @@ impl Rpc for RpcImpl {
         &self,
         private_key: String,
         program: String,
-        record: String,
+        fee_record: Option<String>,
         imports: Option<HashMap<String, String>>,
-        priority_fee: Option<u64>,
+        priority_fee_in_microcredits: Option<u64>,
         query: Option<String>,
     ) -> Result<String> {
         log::info!(target: "rpc","executing rpc method 'deploy'");
         call_aleo_function!(deploy(
             &private_key,
             &program,
-            &record,
+            fee_record.as_deref(),
             imports,
-            priority_fee,
+            priority_fee_in_microcredits,
             query.as_deref()
         ))
         .to_jsonrpc_result()

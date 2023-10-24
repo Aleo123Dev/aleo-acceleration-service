@@ -1,9 +1,9 @@
 export interface DeployParams {
   private_key: string;
   program: string;
-  record: string;
+  fee_record?: string;
   imports?: Map<string, string>;
-  priority_fee?: number;
+  priority_fee_in_microcredits?: number;
   query?: string;
 }
 
