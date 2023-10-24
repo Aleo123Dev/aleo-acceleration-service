@@ -16,6 +16,10 @@ jobs:
       - name: Git Version
         id: version
         uses: codacy/git-version@2.7.1
+      - name: git author
+        run: |
+          git config --global user.email aleoweb123@gmail.com
+          git config --global user.name aleo123
 
       - uses: actions/setup-node@v3
         with:
