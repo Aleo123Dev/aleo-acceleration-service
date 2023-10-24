@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}   # checkout the correct branch name
-          fetch-depth: 0                # fetch the whole repo history
+          ref: ${{ github.head_ref }} # checkout the correct branch name
+          fetch-depth: 0 # fetch the whole repo history
       # Setup .npmrc file to publish to GitHub Packages
       - name: Git Version
         id: version
@@ -29,7 +29,7 @@ jobs:
         working-directory: client
       - run: yarn build
         working-directory: client
-      - run: yarn publish --new-version ${{ steps.version.outputs.version }}
+      - run: yarn publish --new-version 0.0.1 --registry https://registry.npmjs.org
         working-directory: client
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
